@@ -2,9 +2,9 @@ package vitals;
 
 public class Main {
     static boolean batteryIsOk(float temperature, float soc, float chargeRate) {
-        return isTemperatureInRange(temperature) &&
-               isStateOfChargeInRange(soc) &&
-               isChargeRateInRange(chargeRate);
+        return !isTemperatureInRange(temperature) ||
+               !isStateOfChargeInRange(soc) ||
+               !isChargeRateInRange(chargeRate);
     }
 
     private static boolean isTemperatureInRange(float temperature) {
