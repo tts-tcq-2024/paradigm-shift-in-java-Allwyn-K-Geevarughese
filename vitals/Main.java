@@ -1,6 +1,6 @@
 package vitals;
 
-public class BatteryChecker {
+public class Main {
     static boolean batteryIsOk(float temperature, float soc, float chargeRate) {
         return isTemperatureInRange(temperature) &&
                isStateOfChargeInRange(soc) &&
