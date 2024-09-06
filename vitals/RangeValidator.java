@@ -9,7 +9,7 @@ public class RangeValidator {
         }
         return true;
     }
-    public static boolean isParameterInRange(float actualValue, float minValue, float maxValue, String message) {
+    public static boolean isParameterInRange(float actualValue, float maxValue, String message) {
         return isParameterInRange(actualValue, Float.MIN_VALUE, maxValue, message);
     }
     
