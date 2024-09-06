@@ -14,7 +14,7 @@ public class BatteryChecker {
         return RangeValidator.isParameterInRange(chargeRate, 0, 0.8f, "Charge Rate out of range!");
     }
 
-    public static boolean batteryIsOk(float temperature, float soc, float chargeRate) {
+    public static boolean isBatteryOk(float temperature, float soc, float chargeRate) {
         return checkTemperatureInRange(temperature) &&
                checkSocInRange(soc) &&
                checkChargeRateInRange(chargeRate);
