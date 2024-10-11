@@ -10,10 +10,18 @@ public class RangeValidator {
         }
         return true;
     }
+	
+	 public static boolean isParameterInWarningRange(float actualValue, float minValue, float maxValue, float tolerance, String message) {
+	        float lowerWarningLimit = minValue + tolerance;
+	        float upperWarningLimit = maxValue - tolerance;
+	        if ((lowerWarningLimit <= actualValue && actualValue <= minValue) || 
+	            (maxValue <= actualValue && actualValue <= upperWarningLimit)) {
+	            System.out.println(message);
+	            return true;
+	        }
+	        return false;
+	    }
 
-    //Parameters with no minimum value
-    public static boolean isParameterInRange(float actualValue, float maxValue, String message) {
-        return isParameterInRange(actualValue, Float.MIN_VALUE, maxValue, message);
-    }
+   
     
 }
