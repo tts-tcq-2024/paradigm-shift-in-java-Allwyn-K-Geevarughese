@@ -4,9 +4,15 @@ package vitals;
 public class BatteryChecker {
 
 	
-	  public static boolean checkTemperatureInRange(float temperature) {
-	        return RangeValidator.isParameterInRange(temperature, 0, 45, "Temperature out of range!");
-	    }
+	  // public static boolean checkTemperatureInRange(float temperature) {
+	  //       return RangeValidator.isParameterInRange(temperature, 0, 45, "Temperature out of range!");
+	  //   }
+
+	public static boolean checkTemperatureInRange(float temperature) {
+		float tolerance = 0.05f * 45; // 5% of 45
+		return RangeValidator.isParameterInRange(temperature, 0, 45, "Temperature out of range!") && RangeValidator
+				.isParameterInWarningRange(temperature, 0, 45, tolerance, "Temperature approaching limit!");
+	}
 
 	    public static boolean checkSocInRange(float soc) {
 	        return RangeValidator.isParameterInRange(soc, 20, 80, "State of Charge out of range!");
