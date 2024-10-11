@@ -89,3 +89,8 @@ Same for Temperature and Charge-rate.
 
 Keep in mind: Though we are starting with warning levels for all parameters, customers may give feedback to have warnings only for _some_ parameters and not others. Minimize the change needed for such 'tuning'.
 
+My Experiance while refactoring:
+- It was somewhat difficult to make changes in the existing file
+- To add the new functionalities to the exixting code was not easy
+- Created new functions with respect to the existing functionalities , so that it doesnot change
+
