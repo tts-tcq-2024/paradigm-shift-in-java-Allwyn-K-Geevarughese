@@ -27,9 +27,6 @@ private static boolean isInLowerWarningRange(float actualValue, float minValue, 
     return lowerWarningLimit <= actualValue && actualValue <= minValue;
 }
 
-private static boolean isInUpperWarningRange(float actualValue, float maxValue, float upperWarningLimit)
-
-
-   
-    
+private static boolean isInUpperWarningRange(float actualValue, float maxValue, float upperWarningLimit) {
+    return maxValue <= actualValue && actualValue <= upperWarningLimit;
 }
