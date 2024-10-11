@@ -1,53 +1,53 @@
-
 package vitals;
 
 public class BatteryChecker {
 
-	
-	  // public static boolean checkTemperatureInRange(float temperature) {
-	  //       return RangeValidator.isParameterInRange(temperature, 0, 45, "Temperature out of range!");
-	  //   }
+    private static final float TEMPERATURE_MIN = 0;
+    private static final float TEMPERATURE_MAX = 45;
+    private static final float SOC_MIN = 20;
+    private static final float SOC_MAX = 80;
+    private static final float CHARGE_RATE_MIN = 0f;
+    private static final float CHARGE_RATE_MAX = 0.8f;
 
-	public static boolean checkTemperatureInRange(float temperature) {
-		float tolerance = 0.05f * 45; // 5% of 45
-		return RangeValidator.isParameterInRange(temperature, 0, 45, "Temperature out of range!") && RangeValidator
-				.isParameterInWarningRange(temperature, 0, 45, tolerance, "Temperature approaching limit!");
-	}
+    // Consolidate tolerance calculation into a helper method
+    private static float calculateTolerance(float maxRange) {
+        return 0.05f * maxRange; // 5% tolerance
+    }
 
-	    public static boolean checkSocInRange(float soc) {
-	        return RangeValidator.isParameterInRange(soc, 20, 80, "State of Charge out of range!");
-	    }
+    public static boolean checkTemperatureInRange(float temperature) {
+        return checkInRangeAndWarning(temperature, TEMPERATURE_MIN, TEMPERATURE_MAX, "Temperature");
+    }
 
-	    public static boolean checkChargeRateInRange(float chargeRate) {
-	        return RangeValidator.isParameterInRange(chargeRate,0f, 0.8f, "Charge Rate out of range!");
-	    }
-	
-	
-	    public static boolean checkTemperatureInWarningRange(float temperature) {
-	        float tolerance = 0.05f * 45; // 5% of 45
-	        return RangeValidator.isParameterInWarningRange(temperature, 0, 45, tolerance, "Temperature approaching limit!");
-	    }
+    public static boolean checkSocInRange(float soc) {
+        return checkInRange(soc, SOC_MIN, SOC_MAX, "State of Charge");
+    }
 
-	    public static boolean checkSocInWarningRange(float soc) {
-	        float tolerance = 0.05f * 80; // 5% of 80
-	        return RangeValidator.isParameterInWarningRange(soc, 20, 80, tolerance, "State of Charge approaching limit!");
-	    }
+    public static boolean checkChargeRateInRange(float chargeRate) {
+        return checkInRange(chargeRate, CHARGE_RATE_MIN, CHARGE_RATE_MAX, "Charge Rate");
+    }
 
-	    public static boolean checkChargeRateInWarningRange(float chargeRate) {
-	        float tolerance = 0.05f * 0.8f; // 5% of 0.8
-	        return RangeValidator.isParameterInWarningRange(chargeRate, Float.MIN_VALUE, 0.8f, tolerance, "Charge Rate approaching limit!");
-	    }
+    // Helper method to check both range and warning range for parameters
+    private static boolean checkInRangeAndWarning(float value, float min, float max, String parameterName) {
+        float tolerance = calculateTolerance(max);
+        return checkInRange(value, min, max, parameterName) && 
+               checkInWarningRange(value, min, max, tolerance, parameterName);
+    }
 
-	    public static boolean isBatteryOk(float temperature, float soc, float chargeRate) {
-	        boolean isTemperatureOk = checkTemperatureInRange(temperature);
-	        boolean isSocOk = checkSocInRange(soc);
-	        boolean isChargeRateOk = checkChargeRateInRange(chargeRate);
+    // Helper method for normal range checking
+    private static boolean checkInRange(float value, float min, float max, String parameterName) {
+        return RangeValidator.isParameterInRange(value, min, max, parameterName + " out of range!");
+    }
 
-	        // Check if parameters are within warning ranges
-	        boolean isTemperatureInWarningRange = checkTemperatureInWarningRange(temperature);
-	        boolean isSocInWarningRange = checkSocInWarningRange(soc);
-	        boolean isChargeRateInWarningRange = checkChargeRateInWarningRange(chargeRate);
+    // Helper method for warning range checking
+    private static boolean checkInWarningRange(float value, float min, float max, float tolerance, String parameterName) {
+        return RangeValidator.isParameterInWarningRange(value, min, max, tolerance, parameterName + " approaching limit!");
+    }
 
-	        return isTemperatureOk && isSocOk && isChargeRateOk && !isTemperatureInWarningRange && !isSocInWarningRange && !isChargeRateInWarningRange;
-	    }
+    public static boolean isBatteryOk(float temperature, float soc, float chargeRate) {
+        boolean isTemperatureOk = checkTemperatureInRange(temperature);
+        boolean isSocOk = checkSocInRange(soc);
+        boolean isChargeRateOk = checkChargeRateInRange(chargeRate);
+
+        return isTemperatureOk && isSocOk && isChargeRateOk;
+    }
 }
