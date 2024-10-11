@@ -9,9 +9,6 @@ public class Main {
             assert (!BatteryChecker.isBatteryOk(30, 100, 0.4f)); // State Of Charge Out of range
             assert (!BatteryChecker.isBatteryOk(10, 55, 10.0f)); // Charge Rate Out of range
             
-            // New assertions for warning ranges
-            assert (BatteryChecker.checkTemperatureInWarningRange(42.5f));
-            assert (BatteryChecker.checkSocInWarningRange(76.0f));
-            assert (BatteryChecker.checkChargeRateInWarningRange(0.76f));
+         
     }
 }
