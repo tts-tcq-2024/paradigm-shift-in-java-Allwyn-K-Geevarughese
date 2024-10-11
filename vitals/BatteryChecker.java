@@ -19,11 +19,11 @@ public class BatteryChecker {
     }
 
     public static boolean checkSocInRange(float soc) {
-        return checkInRange(soc, SOC_MIN, SOC_MAX, "State of Charge");
+        return checkInRangeAndWarning(soc, SOC_MIN, SOC_MAX, "State of Charge");
     }
 
     public static boolean checkChargeRateInRange(float chargeRate) {
-        return checkInRange(chargeRate, CHARGE_RATE_MIN, CHARGE_RATE_MAX, "Charge Rate");
+        return checkInRangeAndWarning(chargeRate, CHARGE_RATE_MIN, CHARGE_RATE_MAX, "Charge Rate");
     }
 
     // Helper method to check both range and warning range for parameters
